@@ -1,10 +1,16 @@
-$(document).ready(function () {
-    var bg = document.querySelector('.item-bg');
+var bg = document.querySelector('.item-bg');
+var items = document.querySelectorAll('.news__item');
+var item = document.querySelector('.news__item');
 
-    $(document).on("mouseover", ".__item", function (_event, _element) {
+function cLog(content) {
+    console.log(content)
+}
 
-        var Item = document.querySelectorAll('.__item');
-        Item.forEach(function (element, index) {
+if($(window).width() > 800) {
+    $(document).on("mouseover", ".news__item", function (_event, _element) {
+
+        var newsItem = document.querySelectorAll('.news__item');
+        newsItem.forEach(function (element, index) {
             element.addEventListener('mouseover', function () {
                 var x = this.getBoundingClientRect().left;
                 var y = this.getBoundingClientRect().top;
@@ -12,7 +18,9 @@ $(document).ready(function () {
                 var height = this.getBoundingClientRect().height;
 
                 $('.item-bg').addClass('active');
-                $('.__item').removeClass('active');
+                $('.news__item').removeClass('active');
+                // $('.news__item').removeClass('active');
+
 
                 bg.style.width = width + 'px';
                 bg.style.height = height + 'px';
@@ -21,15 +29,16 @@ $(document).ready(function () {
 
             element.addEventListener('mouseleave', function () {
                 $('.item-bg').removeClass('active');
-                $('.__item').removeClass('active');
+                $('.news__item').removeClass('active');
             });
 
         });
 
     });
-});
+}
 
-var swiper = new Swiper('.-slider', {
+
+var swiper = new Swiper('.news-slider', {
     effect: 'coverflow',
     grabCursor: true,
     loop: true,
@@ -53,25 +62,26 @@ var swiper = new Swiper('.-slider', {
     },
     simulateTouch: true,
     navigation: {
-        nextEl: '.-slider-next',
-        prevEl: '.-slider-prev'
+        nextEl: '.news-slider-next',
+        prevEl: '.news-slider-prev'
     },
     pagination: {
-        el: '.-slider__pagination',
+        el: '.news-slider__pagination',
         clickable: true
-},
+    },
     on: {
         init: function () {
             var activeItem = document.querySelector('.swiper-slide-active');
 
-            var sliderItem = activeItem.querySelector('.__item');
+            var sliderItem = activeItem.querySelector('.news__item');
 
-            $('.swiper-slide-active .__item').addClass('active');
+            $('.swiper-slide-active .news__item').addClass('active');
 
             var x = sliderItem.getBoundingClientRect().left;
             var y = sliderItem.getBoundingClientRect().top;
             var width = sliderItem.getBoundingClientRect().width;
             var height = sliderItem.getBoundingClientRect().height;
+
 
             $('.item-bg').addClass('active');
 
@@ -83,26 +93,27 @@ var swiper = new Swiper('.-slider', {
 });
 
 swiper.on('touchEnd', function () {
-    $('.__item').removeClass('active');
-    $('.swiper-slide-active .__item').addClass('active');
+    $('.news__item').removeClass('active');
+    $('.swiper-slide-active .news__item').addClass('active');
 });
 
 swiper.on('slideChange', function () {
-    $('.__item').removeClass('active');
+    $('.news__item').removeClass('active');
 });
 
 swiper.on('slideChangeTransitionEnd', function () {
-    $('.__item').removeClass('active');
+    $('.news__item').removeClass('active');
     var activeItem = document.querySelector('.swiper-slide-active');
 
-    var sliderItem = activeItem.querySelector('.__item');
+    var sliderItem = activeItem.querySelector('.news__item');
 
-    $('.swiper-slide-active .__item').addClass('active');
+    $('.swiper-slide-active .news__item').addClass('active');
 
     var x = sliderItem.getBoundingClientRect().left;
     var y = sliderItem.getBoundingClientRect().top;
     var width = sliderItem.getBoundingClientRect().width;
     var height = sliderItem.getBoundingClientRect().height;
+
 
     $('.item-bg').addClass('active');
 
@@ -110,3 +121,5 @@ swiper.on('slideChangeTransitionEnd', function () {
     bg.style.height = height + 'px';
     bg.style.transform = 'translateX(' + x + 'px ) translateY(' + y + 'px)';
 });
+
+
